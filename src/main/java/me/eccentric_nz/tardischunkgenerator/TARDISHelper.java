@@ -432,11 +432,10 @@ public class TARDISHelper extends JavaPlugin implements TARDISHelperAPI {
     }
 
     @Override
-    public Location searchBiome(World world, Biome biome, Player player) {
+    public Location searchBiome(World world, Biome biome, Player player, Location policeBox) {
         WorldServer worldServer = ((CraftWorld) world).getHandle();
         BiomeBase biomeBase = worldServer.r().b(IRegistry.ay).get(MinecraftKey.a(biome.getKey().getKey()));
-        CommandListenerWrapper commandListenerWrapper = ((CraftPlayer) player).getHandle().getCommandListener();
-        BlockPosition playerBlockPosition = new BlockPosition(commandListenerWrapper.getPosition());
+        BlockPosition playerBlockPosition = new BlockPosition(policeBox.getX(), policeBox.getY(), policeBox.getZ());
         BlockPosition blockPosition = worldServer.a(biomeBase, playerBlockPosition, 6400, 8);
         if (blockPosition != null) {
             return new Location(world, blockPosition.getX(), blockPosition.getY(), blockPosition.getZ());
